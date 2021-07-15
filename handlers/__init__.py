@@ -14,3 +14,4 @@ def register_handlers(dp: Dispatcher):
 
     register_admin_actions(dp)
     register_event_handlers(dp)
+    register_user_handlers(dp)

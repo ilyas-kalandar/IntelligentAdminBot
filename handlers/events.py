@@ -1,5 +1,6 @@
 from aiogram import Dispatcher
-from aiogram.types import Message
+from aiogram.types import Message, ContentTypes
+
 from settings import CHAT_ID
 
 
@@ -9,6 +10,10 @@ async def delete_message(message: Message):
     :param message: A message from telegram
     :return:
     """
+
+    if message.content_type == ContentTypes.NEW_CHAT_MEMBERS:
+        pass
+
     await message.delete()  # delete message
 
 

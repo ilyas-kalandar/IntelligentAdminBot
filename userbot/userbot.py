@@ -21,3 +21,7 @@ class UserBot:
             raise ValueError("User does not exist in this chat.")
 
         return _user.user
+
+    async def get_message(self, chat_id: int, message_id: int):
+        message = await self.client.get_messages(chat_id, message_id)
+        return message
