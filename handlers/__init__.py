@@ -1,6 +1,6 @@
 from aiogram import Dispatcher
 
-from .admin_actions import register_admin_handlers
+from .admin_actions import register_admin_actions
 from .user_actions import register_user_handlers
 
 
@@ -11,5 +11,4 @@ def register_handlers(dp: Dispatcher):
     :return:
     """
 
-    register_user_handlers()
-    register_admin_handlers()
+    register_admin_actions(dp)
