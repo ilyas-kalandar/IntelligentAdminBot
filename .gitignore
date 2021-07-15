@@ -1,1 +1,6 @@
 .idea/
+__pycache__/
+database/__pycache__/
+userbot/__pycache__/
+handlers/__pycache__/
+
