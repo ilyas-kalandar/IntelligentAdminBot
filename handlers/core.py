@@ -7,7 +7,7 @@ from dispatcher import user_bot
 
 def send_id(function: Callable[[types.Message, int, str], Any]):
     """
-    Call to function with ID of target
+    Call to handler-function with ID of target
     If ID not exist (message is incorrect) sends error msg
 
     :param function:
@@ -34,7 +34,9 @@ def send_id(function: Callable[[types.Message, int, str], Any]):
                 return
 
         if not _id:
-            await message.reply("Ты даун!")
+            await message.reply(
+                "Please use provide a username or send message as reply to another message!"
+            )
             return
 
         await function(message, _id, _full_name)
@@ -42,11 +44,11 @@ def send_id(function: Callable[[types.Message, int, str], Any]):
     return wrapper
 
 
-def catch_exceptions(function):
+def catch_exceptions(function: Callable):
     """
-    Catch some telegram api exceptions
+    Catch some Telegram-API exceptions
 
-    :param function: A function
+    :param Callable function: A function
     :return: Wrapped function
     :rtype: Callable
     """
@@ -57,7 +59,7 @@ def catch_exceptions(function):
         except exceptions.UserIsAnAdministratorOfTheChat:
             await message.answer("Oh, shit, user is administrator.")
         except exceptions.CantRestrictChatOwner:
-            await message.answer("Oh, my God, you trying to this action with our king...")
+            await message.answer("Chat owner cooler than me :/")
         except exceptions.ChatAdminRequired:
             await message.answer("I am not admin.")
 

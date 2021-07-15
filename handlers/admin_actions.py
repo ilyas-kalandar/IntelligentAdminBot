@@ -1,6 +1,5 @@
 from aiogram import Dispatcher, types
 
-from dispatcher import bot
 from settings import CHAT_ID
 from utils import mention_user
 from .core import send_id, catch_exceptions
@@ -16,7 +15,7 @@ async def cmd_ban(message: types.Message, user_id: int, full_name: str):
     :param user_id: A Telegram-ID of user which will be banned
     :param full_name: A fullname of user which will be banned
     """
-    await bot.kick_chat_member(message.chat.id, user_id)
+    await message.bot.kick_chat_member(message.chat.id, user_id)
     await message.reply(
         f"You banned {mention_user(full_name, user_id)}"
     )
@@ -32,7 +31,7 @@ async def cmd_unban(message: types.Message, user_id: int, full_name: str):
     :param user_id: A Telegram-ID of user which will be unbanned
     :param full_name: A fullname of user which will be unbanned
     """
-    await bot.unban_chat_member(message.chat.id, user_id, only_if_banned=True)
+    await message.bot.unban_chat_member(message.chat.id, user_id, only_if_banned=True)
     await message.reply(
         f"You unbanned {mention_user(full_name, user_id)}"
     )
