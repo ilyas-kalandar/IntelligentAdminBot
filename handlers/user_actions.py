@@ -14,7 +14,7 @@ async def status(message: types.Message):
     """
     first_message = await user_bot.get_message(message.chat.id, 1)
     creation_time = datetime.fromtimestamp(first_message.date)
-    members_count = await message.chat.get_members_count()
+    members_count = await message.bot.get_member_count(message.chat.id)
 
     result = "<b>Chat information</b> ℹ \n" + \
              f"<b>Chat name</b>: {message.chat.full_name}\n" + \
