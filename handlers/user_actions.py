@@ -1,7 +1,8 @@
 from datetime import datetime
-from dispatcher import user_bot
+
 from aiogram import types, Dispatcher
 
+from dispatcher import user_bot
 from settings import CHAT_ID
 
 
@@ -20,5 +21,9 @@ async def status(message: types.Message):
     await message.reply(result)
 
 
+async def user_info(message: types.Message):
+    pass
+
+
 def register_user_handlers(dp: Dispatcher):
-    dp.register_message_handler(status, commands=['stat', 'status'], chat_id=CHAT_ID)
+    dp.register_message_handler(status, commands=['stat', 'status'], chat_id=CHAT_ID, commands_prefix='!/')

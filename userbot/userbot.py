@@ -23,5 +23,11 @@ class UserBot:
         return _user.user
 
     async def get_message(self, chat_id: int, message_id: int):
-        message = await self.client.get_messages(chat_id, message_id)
-        return message
+        """
+        Returns a message from telegram by its ID
+        :param chat_id: A chat_id of message
+        :param message_id: An ID of message
+        :return: Message
+        """
+
+        return await self.client.get_messages(chat_id, message_id)

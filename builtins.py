@@ -1,0 +1,2 @@
+READ_ONLY = False
+ANALYZING = False

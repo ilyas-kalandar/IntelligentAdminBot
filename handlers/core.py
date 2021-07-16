@@ -57,10 +57,10 @@ def catch_exceptions(function: Callable):
         try:
             await function(message)
         except exceptions.UserIsAnAdministratorOfTheChat:
-            await message.answer("Oh, shit, user is administrator.")
+            await message.reply("Oh, shit, user is administrator.")
         except exceptions.CantRestrictChatOwner:
-            await message.answer("Chat owner cooler than me :/")
+            await message.reply("Chat owner cooler than me :/")
         except exceptions.ChatAdminRequired:
-            await message.answer("I am not admin.")
+            await message.reply("I am not admin.")
 
     return wrapper

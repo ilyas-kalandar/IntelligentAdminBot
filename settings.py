@@ -3,6 +3,7 @@
 BOT_TOKEN = "1857590083:AAF0KcT_2grnxFjuFYIwg5wHYfj8dHrsFBM"
 DB = "Db here"
 CHAT_ID = -1001185983192
+WAIT_FOR_CAPTCHA_TIME = 5
 
 # Pyrogram settings
 
