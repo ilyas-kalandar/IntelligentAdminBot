@@ -1,6 +1,6 @@
 # <p align=center>IntelligentBot - bot for managing your telegram group.</p>
 <img src='github/intelligent.png'/> <br>
-## What I implemented and what I didn't implemented
+## What I implemented and what I didn't implement
  - [x] - <b>Ban/Unban/Kick commands</b>
  - [X] - <b>Mute/Unmute commands</b>
  - [x] - <b>Simple captcha</b>
