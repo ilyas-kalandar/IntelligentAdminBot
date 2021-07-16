@@ -34,10 +34,6 @@ async def delete_if_ro(message: types.Message):
     await message.delete()
 
 
-async def user_info(message: types.Message):
-    pass
-
-
 def register_user_handlers(dp: Dispatcher):
     """
     Registers handlers for user messages.
