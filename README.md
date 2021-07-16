@@ -6,7 +6,7 @@
  - [x] - <b>Simple captcha</b>
  - [X] - <b>Read-Only mode</b>
  - [x] - <b>Getting information about group</b>
- - [X] - <b>Using commands directyly with user's username</b>
+ - [X] - <b>Using commands directly with user's username</b>
  - [ ] - <b>Messages analyzing</b>
  - [ ] - <b>Announcements system</b>
  - [ ] - <b>Settings</b>
