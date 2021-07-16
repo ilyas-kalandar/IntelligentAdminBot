@@ -17,7 +17,7 @@
  #### Firstly get BotAPI token from <a href='https://t.me/BotFather'>BotFather</a> <br>
  #### Then get Telegram API ID and API Hash from <a href='https://my.telegram.org/apps'>here</a>
  #### Open <code>settings.py</code> and put obtained values to them's placeholders 
- #### Get ID of your telegram-group, you can get it by adding <a href='https://t.me/my_id_bot'>this</a> bot and sending /start command. 
+ #### Get ID of your telegram-group (you can get it by adding <a href='https://t.me/my_id_bot'>this</a> bot and sending /start command) and put it to it's placeholder.
  #### Install python libs like 'aiogram', 'pyrogram' and 'asyncio'
  #### <code>pip install aiogram pyrogram asyncio</code>
  #### So, you can start bot by using this command <code>python main.py</code>
