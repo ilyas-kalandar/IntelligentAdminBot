@@ -1,11 +1,10 @@
 # Bot settings
 
-BOT_TOKEN = "1857590083:AAF0KcT_2grnxFjuFYIwg5wHYfj8dHrsFBM"
-DB = "Db here"
-CHAT_ID = -1001185983192
+BOT_TOKEN = "BOT TOKEN HERE"
+CHAT_ID = None,  # put your chat_id here
 WAIT_FOR_CAPTCHA_TIME = 20
 
-# Pyrogram settings
+# User_bot settings
 
-API_HASH = "07467242f63e01693a5d5225bf1d6964"
-API_ID = 1393129
+API_HASH = ""  # Telegram-API HASH
+API_ID = None  # Telegram api ID
