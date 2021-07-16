@@ -1,5 +1,6 @@
 from aiogram import Dispatcher, types
 
+import built_vars
 from settings import CHAT_ID
 from utils import mention_user
 from .core import send_id, catch_exceptions
@@ -83,6 +84,16 @@ async def cmd_unmute(message: types.Message, user_id: int, full_name: str):
         f"You <b>unmuted</b> {mention_user(full_name, user_id)}")
 
 
+async def read_only(message: types.Message):
+    """
+    Enabled/Disable Read-Only mode
+    :param message: A telegram message
+    :return:
+    """
+    built_vars.READ_ONLY = False if built_vars.READ_ONLY else True
+    await message.answer(f"Read-only mode {'enabled' if built_vars.READ_ONLY else 'disabled'}.")
+
+
 def register_admin_actions(dp_instance: Dispatcher):
     """
     Register handlers for administrative actions
@@ -98,6 +109,10 @@ def register_admin_actions(dp_instance: Dispatcher):
                                          can_restrict_members=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_mute, commands=['mute'],
+                                         chat_id=CHAT_ID,
+                                         is_admin=True,
+                                         commands_prefix='!/')
+    dp_instance.register_message_handler(read_only, commands=['ro', 'readonly'],
                                          chat_id=CHAT_ID,
                                          is_admin=True,
                                          commands_prefix='!/')
