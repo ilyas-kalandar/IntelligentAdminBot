@@ -7,6 +7,11 @@ from settings import CHAT_ID
 
 
 async def status(message: types.Message):
+    """
+    Represents an information about chat
+    :param message: A telegram message
+    :return: None
+    """
     first_message = await user_bot.get_message(message.chat.id, 1)
     creation_time = datetime.fromtimestamp(first_message.date)
     members_count = await message.chat.get_members_count()
@@ -21,9 +26,22 @@ async def status(message: types.Message):
     await message.reply(result)
 
 
+async def delete_if_ro(message: types.Message):
+    """
+    Delete message if Read-Only mode enabled.
+    :param message: A telegram message
+    """
+    await message.delete()
+
+
 async def user_info(message: types.Message):
     pass
 
 
 def register_user_handlers(dp: Dispatcher):
+    """
+    Registers handlers for user messages.
+    :param dp: A dispatcher
+    """
     dp.register_message_handler(status, commands=['stat', 'status'], chat_id=CHAT_ID, commands_prefix='!/')
+    dp.register_message_handler(delete_if_ro, is_admin=False, read_only=True)

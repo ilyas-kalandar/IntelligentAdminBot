@@ -3,6 +3,7 @@ import asyncio
 from aiogram import Dispatcher
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
+from dispatcher import bot
 from settings import CHAT_ID, WAIT_FOR_CAPTCHA_TIME
 from utils import mention_user
 
@@ -23,7 +24,7 @@ async def delete_message(message: Message):
                                       callback_data=f'captcha {message.from_user.id}')
         keyboard.add(button)
 
-        await message.answer(
+        captcha = await message.answer(
             f"Hello {mention_user(message.from_user.full_name, message.from_user.id)}, are you bot?",
             reply_markup=keyboard,
         )
@@ -32,21 +33,28 @@ async def delete_message(message: Message):
             message.chat.id,
             message.from_user.id,
             can_send_messages=False,
-
         )
 
         await asyncio.sleep(WAIT_FOR_CAPTCHA_TIME)
 
-        # just check
+        # obtain member's permissions
 
-        member = await message.bot.get_chat_member(message.chat.id,
-                                                   message.from_user.id)
+        member = await bot.get_chat_member(message.chat.id,
+                                           message.from_user.id)
 
-        # if member has not pass the captcha, just ban it
-        if not member.can_send_messages:
-            await message.bot.kick_chat_member(message.chat.id, member.user.id)
-            await message.bot.send_message(message.chat.id,
-                                           f"{mention_user(member.user.full_name, member.user.id)} was bot.")
+        # if member can't send messages, ban it.
+
+        print(member.can_send_messages)
+        print(type(member.can_send_messages))
+
+        # normally, aiogram should return only boolean, but sometimes it returns None instead True
+
+        if member.can_send_messages == False:
+            await bot.kick_chat_member(message.chat.id, member.user.id)
+            await bot.send_message(message.chat.id,
+                                   f"{mention_user(member.user.full_name, member.user.id)} was bot.")
+
+        await captcha.delete()
 
 
 def register_event_handlers(dp: Dispatcher):

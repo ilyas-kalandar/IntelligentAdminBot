@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher
 
 import settings
-from filters import IsAdminFilter, CanRestrictMembers
+from filters import IsAdminFilter, CanRestrictMembers, ReadOnlyFilter
 from userbot import UserBot
 
 # bot
@@ -15,3 +15,4 @@ user_bot = UserBot(settings.API_HASH, settings.API_ID)
 # register filters
 dp.filters_factory.bind(IsAdminFilter)
 dp.filters_factory.bind(CanRestrictMembers)
+dp.filters_factory.bind(ReadOnlyFilter)
