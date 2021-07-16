@@ -3,7 +3,7 @@
 ## What I implemented and what I didn't implemented
  - [x] - <b>Ban/Unban/Kick commands</b>
  - [X] - <b>Mute/Unmute commands</b>
- - [x] -<b>Simple captcha</b>
+ - [x] - <b>Simple captcha</b>
  - [X] - <b>Read-Only mode</b>
  - [x] - <b>Getting information about group</b>
  - [X] - <b>Using commands directyly with user's username</b>
