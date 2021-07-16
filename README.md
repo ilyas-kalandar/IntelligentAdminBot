@@ -23,8 +23,8 @@
  #### So, you can start bot by using this command <code>python main.py</code>
  
 ## Built with
-#### Aiogram - a powerfull framework to creating telegram bots (<a href='https://pypi.org/project/aiogram/'>Link</a>
-#### Pyrogram - a library for accesing to telegram api. (<a href='https://github.com/pyrogram/pyrogram'>Link</a>
+#### Aiogram - a powerfull framework to creating telegram bots (<a href='https://pypi.org/project/aiogram/'>Link</a>)
+#### Pyrogram - a library for accesing to telegram api. (<a href='https://github.com/pyrogram/pyrogram'>Link</a>)
 #### Python - a great programming language.
 
 ### With ❤ Ilyas Kalandar, 2021.
