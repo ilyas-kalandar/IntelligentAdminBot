@@ -116,3 +116,7 @@ def register_admin_actions(dp_instance: Dispatcher):
                                          chat_id=CHAT_ID,
                                          is_admin=True,
                                          commands_prefix='!/')
+    dp_instance.register_message_handler(cmd_unmute, commands=['unmute'],
+                                         chat_id=CHAT_ID,
+                                         is_admin=True,
+                                         commands_prefix='!/')

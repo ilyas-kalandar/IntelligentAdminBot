@@ -30,7 +30,7 @@ class CanRestrictMembers(BoundFilter):
 
     async def check(self, message: types.Message) -> bool:
         member = await message.bot.get_chat_member(CHAT_ID, message.from_user.id)
-        return self.can_restrict_members == member.can_restrict_members or member.is_chat_creator()
+        return (member.is_chat_creator() or member.can_restrict_members) == self.can_restrict_members
 
 
 class ReadOnlyFilter(BoundFilter):
