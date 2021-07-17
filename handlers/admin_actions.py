@@ -78,7 +78,10 @@ async def cmd_unmute(message: types.Message, user_id: int, full_name: str):
     await message.bot.restrict_chat_member(
         message.chat.id,
         user_id,
-        permissions=message.chat.permissions  # set default permissions
+        can_send_other_messages=True,
+        can_send_media_messages=True,
+        can_send_messages=True,
+        can_add_web_page_previews=True,
     )
     await message.reply(
         f"You <b>unmuted</b> {mention_user(full_name, user_id)}")
