@@ -16,11 +16,11 @@ async def status(message: types.Message):
     creation_time = datetime.fromtimestamp(first_message.date)
     members_count = await message.bot.get_chat_members_count(message.chat.id)
 
-    result = "<b>Chat information</b> ℹ \n" + \
-             f"<b>Chat name</b>: {message.chat.full_name}\n" + \
-             f"<b>Members count</b> 🙋‍: {members_count}\n" + \
-             f"<b>Total messages</b> 📉: {message.message_id}\n" + \
-             f"<b>Chat ID</b> 🛠: <code>{message.chat.id}</code> \n" + \
+    result = f"<b>Chat information</b> ℹ \n" \
+             f"<b>Chat name</b>: {message.chat.full_name}\n" \
+             f"<b>Members count</b> 🙋‍: {members_count}\n" \
+             f"<b>Total messages</b> 📉: {message.message_id}\n" \
+             f"<b>Chat ID</b> 🛠: <code>{message.chat.id}</code> \n" \
              f"<b>Creation time</b> 📅: {creation_time}"
 
     await message.reply(result)
