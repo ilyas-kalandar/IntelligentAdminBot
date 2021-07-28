@@ -16,8 +16,8 @@ async def cmd_ban(message: types.Message, user_id: int, full_name: str):
     :param user_id: A Telegram-ID of user which will be banned
     :param full_name: A fullname of user which will be banned
     """
-    command = message.text.lower()
-
+    command = message.text.lower().split()[0]
+    
     await message.bot.kick_chat_member(message.chat.id, user_id)
     await message.reply(
         f"You <b>{'banned' if 'ban' in command else 'kicked'}</b> {mention_user(full_name, user_id)}"
