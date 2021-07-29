@@ -43,5 +43,4 @@ class ReadOnlyFilter(BoundFilter):
         self.read_only = read_only
 
     async def check(self, message):
-        print(built_vars.READ_ONLY)
         return self.read_only == built_vars.READ_ONLY
