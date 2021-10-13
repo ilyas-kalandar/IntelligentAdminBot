@@ -1,10 +1,18 @@
+from typing import List
+
 # Bot settings
 
-BOT_TOKEN = "BOT TOKEN HERE"
-CHAT_ID = None,  # put your chat_id here
+BOT_TOKEN: str = "BOT TOKEN HERE"
+
+# served chats ID
+
+SERVED_CHATS: List[int] = [
+
+]
+
 WAIT_FOR_CAPTCHA_TIME = 20
 
 # User_bot settings
 
-API_HASH = ""  # Telegram-API HASH
-API_ID = None  # Telegram api ID
+API_HASH: str = ""  # Telegram-API HASH
+API_ID: int = 0  # Telegram api ID

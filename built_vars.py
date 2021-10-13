@@ -1,1 +1,1 @@
-READ_ONLY = False
+READ_ONLY = {}
