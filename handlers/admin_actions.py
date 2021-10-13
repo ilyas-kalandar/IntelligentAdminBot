@@ -1,7 +1,7 @@
 from aiogram import Dispatcher, types
 
 import built_vars
-from settings import CHAT_ID
+from settings import SERVED_CHATS
 from utils import mention_user
 from .core import send_id, catch_exceptions
 
@@ -17,7 +17,7 @@ async def cmd_ban(message: types.Message, user_id: int, full_name: str):
     :param full_name: A fullname of user which will be banned
     """
     command = message.text.lower().split()[0]
-    
+
     await message.bot.kick_chat_member(message.chat.id, user_id)
     await message.reply(
         f"You <b>{'banned' if 'ban' in command else 'kicked'}</b> {mention_user(full_name, user_id)}"
@@ -93,6 +93,10 @@ async def read_only(message: types.Message):
     :param message: A telegram message
     :return:
     """
+
+    if message.chat.id not in built_vars.READ_ONLY:
+        built_vars.READ_ONLY[message.chat.id] = False
+
     built_vars.READ_ONLY = False if built_vars.READ_ONLY else True
     await message.answer(f"Read-only mode {'enabled' if built_vars.READ_ONLY else 'disabled'}.")
 
@@ -103,23 +107,27 @@ def register_admin_actions(dp_instance: Dispatcher):
     :param dp_instance: A dispatcher instance
     :return:
     """
-    dp_instance.register_message_handler(cmd_ban, commands=['ban', 'kick'],
-                                         chat_id=CHAT_ID,
+    dp_instance.register_message_handler(cmd_ban, is_served_chat=True, commands=['ban', 'kick'],
+                                         chat_id=SERVED_CHATS,
                                          can_restrict_members=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_unban, commands=['unban'],
-                                         chat_id=CHAT_ID,
+                                         chat_id=SERVED_CHATS,
+                                         is_served_chat=True,
                                          can_restrict_members=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_mute, commands=['mute'],
-                                         chat_id=CHAT_ID,
+                                         chat_id=SERVED_CHATS,
                                          is_admin=True,
+                                         is_served_chat=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(read_only, commands=['ro', 'readonly'],
-                                         chat_id=CHAT_ID,
+                                         chat_id=SERVED_CHATS,
                                          is_admin=True,
+                                         is_served_chat=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_unmute, commands=['unmute'],
-                                         chat_id=CHAT_ID,
+                                         chat_id=SERVED_CHATS,
                                          is_admin=True,
+                                         is_served_chat=True,
                                          commands_prefix='!/')
