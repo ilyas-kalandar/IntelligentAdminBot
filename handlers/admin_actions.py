@@ -1,7 +1,6 @@
 from aiogram import Dispatcher, types
 
 import built_vars
-from settings import SERVED_CHATS
 from utils import mention_user
 from .core import send_id, catch_exceptions
 
@@ -108,26 +107,21 @@ def register_admin_actions(dp_instance: Dispatcher):
     :return:
     """
     dp_instance.register_message_handler(cmd_ban, is_served_chat=True, commands=['ban', 'kick'],
-                                         chat_id=SERVED_CHATS,
                                          can_restrict_members=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_unban, commands=['unban'],
-                                         chat_id=SERVED_CHATS,
                                          is_served_chat=True,
                                          can_restrict_members=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_mute, commands=['mute'],
-                                         chat_id=SERVED_CHATS,
                                          is_admin=True,
                                          is_served_chat=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(read_only, commands=['ro', 'readonly'],
-                                         chat_id=SERVED_CHATS,
                                          is_admin=True,
                                          is_served_chat=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_unmute, commands=['unmute'],
-                                         chat_id=SERVED_CHATS,
                                          is_admin=True,
                                          is_served_chat=True,
                                          commands_prefix='!/')
