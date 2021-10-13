@@ -3,7 +3,6 @@ from datetime import datetime
 from aiogram import types, Dispatcher
 
 from dispatcher import user_bot
-from settings import SERVED_CHATS
 
 
 async def status(message: types.Message):
@@ -39,6 +38,6 @@ def register_user_handlers(dp: Dispatcher):
     Registers handlers for user messages.
     :param dp: A dispatcher
     """
-    dp.register_message_handler(status, is_served_chat=True, commands=['stat', 'status'], chat_id=SERVED_CHATS,
+    dp.register_message_handler(status, is_served_chat=True, commands=['stat', 'status'],
                                 commands_prefix='!/')
     dp.register_message_handler(delete_if_ro, is_served_chat=True, is_admin=False, read_only=True)
