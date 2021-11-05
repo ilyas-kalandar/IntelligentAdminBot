@@ -1,4 +1,4 @@
-from typing import Callable, Any
+from typing import Callable, Any, Union
 
 from aiogram import types, exceptions
 
@@ -16,37 +16,37 @@ def send_id(function: Callable[[types.Message, int, str], Any]):
 
     async def wrapper(message: types.Message):
         args = message.text.split()[1::]
-        _id = None
-        _full_name = None
+        _id: Union[int, None] = None
+        full_name = None
 
         if message.reply_to_message:
             _id = message.reply_to_message.from_user.id
-            _full_name = message.reply_to_message.from_user.full_name
+            full_name = message.reply_to_message.from_user.full_name
         elif args:
-            _username = args[0].removeprefix("@")
+            username = args[0].removeprefix("@")
             try:
                 user = await user_bot.get_user(message.chat.id,
-                                               _username)
+                                               username)
                 _id = user.id
-                _full_name = f"{user.first_name} {user.last_name if user.last_name else ''}"
+                full_name = f"{user.first_name} {user.last_name if user.last_name else ''}"
             except ValueError:
-                await message.answer(f"Failed, @{_username} not in group/blacklist.")
+                await message.answer(f"Failed, @{username} not in group/blacklist.")
                 return
 
         if not _id:
             await message.reply(
-                "Please use provide a username or send message as reply to another message!"
+                "Please provide a username or send message as reply to another message!"
             )
             return
 
-        await function(message, _id, _full_name)
+        await function(message, _id, full_name)
 
     return wrapper
 
 
-def catch_exceptions(function: Callable):
+def catch_exceptions(function: Callable) -> Callable:
     """
-    Catch some Telegram-API exceptions
+    Catches some Telegram-API exceptions
 
     :param Callable function: A function
     :return: Wrapped function

@@ -38,6 +38,6 @@ def register_user_handlers(dp: Dispatcher):
     Registers handlers for user messages.
     :param dp: A dispatcher
     """
-    dp.register_message_handler(status, is_served_chat=True, commands=['stat', 'status'],
+    dp.register_message_handler(status, commands=['stat', 'status'],
                                 commands_prefix='!/')
-    dp.register_message_handler(delete_if_ro, is_served_chat=True, is_admin=False, read_only=True)
+    dp.register_message_handler(delete_if_ro, is_admin=False, read_only=True)

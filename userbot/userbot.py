@@ -1,4 +1,4 @@
-from pyrogram import Client, errors
+from pyrogram import Client, types, errors
 
 
 class UserBot:
@@ -6,14 +6,13 @@ class UserBot:
         self.client = Client('session', api_id, api_hash)
         self.client.start()
 
-    async def get_user(self, chat_id: int, username: str):
+    async def get_user(self, chat_id: int, username: str) -> types.User:
         """
-        Converts username to user_id
+        Returns a telegram user
 
         :param chat_id: An id of chat in telegram
         :param username: Username
         :return: An ID of user on telegram
-        :rtype: int
         """
         try:
             _user = await self.client.get_chat_member(chat_id, username)

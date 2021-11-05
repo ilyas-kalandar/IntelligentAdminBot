@@ -106,22 +106,18 @@ def register_admin_actions(dp_instance: Dispatcher):
     :param dp_instance: A dispatcher instance
     :return:
     """
-    dp_instance.register_message_handler(cmd_ban, is_served_chat=True, commands=['ban', 'kick'],
+    dp_instance.register_message_handler(cmd_ban, commands=['ban', 'kick'],
                                          can_restrict_members=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_unban, commands=['unban'],
-                                         is_served_chat=True,
                                          can_restrict_members=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_mute, commands=['mute'],
                                          is_admin=True,
-                                         is_served_chat=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(read_only, commands=['ro', 'readonly'],
                                          is_admin=True,
-                                         is_served_chat=True,
                                          commands_prefix='!/')
     dp_instance.register_message_handler(cmd_unmute, commands=['unmute'],
                                          is_admin=True,
-                                         is_served_chat=True,
                                          commands_prefix='!/')

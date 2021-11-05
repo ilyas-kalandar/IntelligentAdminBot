@@ -4,7 +4,7 @@ from aiogram import Dispatcher
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 from dispatcher import bot
-from settings import WAIT_FOR_CAPTCHA_TIME
+from settings import CAPTCHA_SLEEP_TIME
 from utils import mention_user
 
 
@@ -35,7 +35,7 @@ async def delete_message(message: Message):
             can_send_messages=False,
         )
 
-        await asyncio.sleep(WAIT_FOR_CAPTCHA_TIME)
+        await asyncio.sleep(CAPTCHA_SLEEP_TIME)
 
         # obtain member's permissions
 
@@ -44,21 +44,18 @@ async def delete_message(message: Message):
 
         # if member can't send messages, ban it.
 
-        print(member.can_send_messages)
-        print(type(member.can_send_messages))
-
-        # normally, aiogram should return only boolean, but sometimes it returns None instead True
+        # normally, aiogram should return only boolean, but sometimes it returns None instead of True
 
         if member.can_send_messages == False:
             await bot.kick_chat_member(message.chat.id, member.user.id)
             await bot.send_message(message.chat.id,
-                                   f"{mention_user(member.user.full_name, member.user.id)} was bot.")
+                                   f"{mention_user(member.user.full_name, member.user.id)} by anti-spammer subsystem.")
 
         await captcha.delete()
 
 
 def register_event_handlers(dp: Dispatcher):
-    dp.register_message_handler(delete_message, is_served_chat=True, content_types=[
+    dp.register_message_handler(delete_message, content_types=[
         "new_chat_members",
         "left_chat_member"
     ])
