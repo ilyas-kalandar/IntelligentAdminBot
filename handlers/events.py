@@ -49,7 +49,8 @@ async def delete_message(message: Message):
         if member.can_send_messages == False:
             await bot.kick_chat_member(message.chat.id, member.user.id)
             await bot.send_message(message.chat.id,
-                                   f"{mention_user(member.user.full_name, member.user.id)} by anti-spammer subsystem.")
+                                   f"{mention_user(member.user.full_name, member.user.id)} "
+                                   "banned by anti-spammer subsystem.")
 
         await captcha.delete()
 
