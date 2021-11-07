@@ -5,7 +5,7 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 from dispatcher import bot
 from settings import CAPTCHA_SLEEP_TIME
-from utils import mention_user
+from utils import mention_user, call_after
 
 
 async def delete_message(message: Message):
@@ -48,9 +48,12 @@ async def delete_message(message: Message):
 
         if member.can_send_messages == False:
             await bot.kick_chat_member(message.chat.id, member.user.id)
-            await bot.send_message(message.chat.id,
-                                   f"{mention_user(member.user.full_name, member.user.id)} "
-                                   "banned by anti-spammer subsystem.")
+            msg = await bot.send_message(message.chat.id,
+                                         f"{mention_user(member.user.full_name, member.user.id)} "
+                                         "banned by anti-spammer subsystem.")
+            msg.bot.loop.create_task(
+                call_after(message.bot.delete_message, 10)
+            )
 
         await captcha.delete()
 

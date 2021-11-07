@@ -8,7 +8,7 @@ from dispatcher import user_bot
 def send_id(function: Callable[[types.Message, int, str], Any]):
     """
     Call to handler-function with ID of target
-    If ID not exist (message is incorrect) sends error msg
+    If ID not exist (message is incorrect) sends error message
 
     :param function:
     :return:
@@ -17,7 +17,7 @@ def send_id(function: Callable[[types.Message, int, str], Any]):
     async def wrapper(message: types.Message):
         args = message.text.split()[1::]
         _id: Union[int, None] = None
-        full_name = None
+        full_name: Union[str, None] = None
 
         if message.reply_to_message:
             _id = message.reply_to_message.from_user.id
