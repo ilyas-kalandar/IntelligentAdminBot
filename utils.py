@@ -1,3 +1,4 @@
+import asyncio
 from typing import Awaitable, Callable
 from asyncio import sleep, Task
 
@@ -13,7 +14,7 @@ def mention_user(full_name: str, user_id: int) -> str:
     return f"<a href='tg://user?id={user_id}'>{full_name}</a>"
 
 
-async def call_after(func: Callable[[...], Awaitable], delay: int, *args, **kwargs):
+def call_after(func: Callable[[...], Awaitable], delay: int, *args, **kwargs):
     """
     Calls async function after ```delay``` seconds
     :param func: An async function
@@ -21,5 +22,9 @@ async def call_after(func: Callable[[...], Awaitable], delay: int, *args, **kwar
     :param args: An arguments for func
     :param kwargs: Keyword-Arguments for func
     """
-    await sleep(delay)
-    await func(*args, **kwargs)
+
+    async def inner_func():
+        await sleep(delay)
+        await func(*args, **kwargs)
+
+    asyncio.create_task(inner_func())

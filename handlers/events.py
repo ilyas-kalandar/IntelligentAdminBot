@@ -51,7 +51,7 @@ async def delete_message(message: Message):
             msg = await bot.send_message(message.chat.id,
                                          f"{mention_user(member.user.full_name, member.user.id)} "
                                          "banned by anti-spammer subsystem.")
-            asyncio.create_task(call_after(msg.delete, 10))
+            call_after(message.delete, 10)
 
         await captcha.delete()
 
