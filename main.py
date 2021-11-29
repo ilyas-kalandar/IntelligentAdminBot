@@ -1,6 +1,8 @@
 import asyncio
 import logging
+
 from dispatcher import dp
+from aiogram.utils import executor
 from handlers import register_handlers
 
 # enable logging
@@ -12,8 +14,10 @@ loop = asyncio.get_event_loop()
 # register handlers
 register_handlers(dp)
 
-# create asyncio tasks
-loop.create_task(dp.start_polling())
+# add asyncio tasks here...
 
 if __name__ == '__main__':
-    loop.run_forever()
+    executor.start_polling(
+        dispatcher=dp,
+        loop=loop,
+    )
