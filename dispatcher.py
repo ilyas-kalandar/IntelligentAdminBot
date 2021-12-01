@@ -2,15 +2,15 @@ from aiogram import Bot, Dispatcher
 
 from filters import IsAdminFilter, CanRestrictMembers, ReadOnlyFilter
 from userbot import UserBot
-from built_vars import CONFIG
+from built_vars import config
 
 # bot
 
-bot = Bot(CONFIG.get_param("bot", "Token"), parse_mode='html')
+bot = Bot(config.bot.token, parse_mode='html')
 dp = Dispatcher(bot)
 
 # user bot
-user_bot = UserBot(CONFIG.get_param("Pyrogram", "ApiHash"), CONFIG.get_param("Pyrogram", "ApiID"))
+user_bot = UserBot(config.pyrogram.api_hash, config.pyrogram.api_id)
 
 # register filters
 dp.filters_factory.bind(IsAdminFilter)
