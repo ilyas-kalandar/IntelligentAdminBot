@@ -1,0 +1,7 @@
+[bot]
+Token=TokenHere
+WaitForCaptchaTime = 20
+
+[Pyrogram]
+ApiHash=HashHere
+ApiId=0
