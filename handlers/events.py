@@ -4,7 +4,7 @@ from aiogram import Dispatcher
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 from dispatcher import bot
-from settings import CAPTCHA_SLEEP_TIME
+from built_vars import CONFIG
 from utils import mention_user, call_after
 
 
@@ -35,7 +35,7 @@ async def delete_message(message: Message):
             can_send_messages=False,
         )
 
-        await asyncio.sleep(CAPTCHA_SLEEP_TIME)
+        await asyncio.sleep(CONFIG.get_param("bot", "WaitForCaptchaTime"))
 
         # obtain member's permissions
 
