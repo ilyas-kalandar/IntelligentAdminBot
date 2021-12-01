@@ -41,4 +41,4 @@ class ReadOnlyFilter(BoundFilter):
         self.read_only = read_only
 
     async def check(self, message: types.Message):
-        return self.read_only == built_vars.READ_ONLY[message.chat.id]
+        return self.read_only == built_vars.read_only[message.chat.id]
