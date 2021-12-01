@@ -93,11 +93,11 @@ async def read_only(message: types.Message):
     :return:
     """
 
-    if message.chat.id not in built_vars.READ_ONLY:
-        built_vars.READ_ONLY[message.chat.id] = False
+    if message.chat.id not in built_vars.read_only:
+        built_vars.read_only[message.chat.id] = False
 
-    built_vars.READ_ONLY = False if built_vars.READ_ONLY else True
-    await message.answer(f"Read-only mode {'enabled' if built_vars.READ_ONLY else 'disabled'}.")
+    built_vars.read_only = False if built_vars.read_only else True
+    await message.answer(f"Read-only mode {'enabled' if built_vars.read_only else 'disabled'}.")
 
 
 def register_admin_actions(dp_instance: Dispatcher):
