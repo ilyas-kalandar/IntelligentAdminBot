@@ -1,6 +1,6 @@
 import asyncio
+from asyncio import sleep
 from typing import Awaitable, Callable
-from asyncio import sleep, Task
 
 
 def mention_user(full_name: str, user_id: int) -> str:
