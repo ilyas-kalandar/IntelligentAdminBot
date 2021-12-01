@@ -1,10 +1,16 @@
-# Bot settings
+from configparser import ConfigParser
+from typing import Union
 
-BOT_TOKEN: str = "BOT TOKEN HERE"
 
-CAPTCHA_SLEEP_TIME = 20
+class Configurator:
+    def __init__(self):
+        self.parser = ConfigParser()
+        self.parser.read("config.ini")
 
-# User_bot settings
-
-API_HASH: str = ""  # Telegram-API HASH
-API_ID: int = 0  # Telegram api ID
+    def get_param(self, section: str, key: str) -> Union[int, str]:
+        """
+        Returns value in config.ini.example
+        :param section: A section of config
+        :param key: A key
+        """
+        return self.parser[section][key]
