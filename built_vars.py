@@ -1,5 +1,5 @@
 from collections import defaultdict
-from configurator import Configurator
+from utils import get_config
 
-READ_ONLY = defaultdict(bool)
-CONFIG = Configurator()
+read_only = defaultdict(bool)
+config = get_config('config.ini')
