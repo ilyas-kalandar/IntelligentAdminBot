@@ -2,8 +2,8 @@ from datetime import datetime
 
 from aiogram import types, Dispatcher
 
-from core import register_handler_with_base_filters
-from dispatcher import user_bot
+from bot.core import register_handler_with_base_filters
+from bot.dispatcher import user_bot
 
 
 async def status(message: types.Message):

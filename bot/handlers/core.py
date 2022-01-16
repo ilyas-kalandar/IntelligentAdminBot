@@ -2,7 +2,7 @@ from typing import Callable, Any, Union
 
 from aiogram import types, exceptions
 
-from dispatcher import user_bot
+from bot.dispatcher import user_bot
 
 
 def send_id(function: Callable[[types.Message, int, str], Any]):
