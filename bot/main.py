@@ -1,9 +1,9 @@
 import asyncio
 import logging
 
-from dispatcher import dp
+from bot.dispatcher import dp
 from aiogram.utils import executor
-from handlers import register_handlers
+from bot.handlers import register_handlers
 
 # enable logging
 logging.basicConfig(level=logging.INFO)

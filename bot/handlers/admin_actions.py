@@ -1,7 +1,7 @@
 from aiogram import Dispatcher, types
 
-import built_vars
-from utils import mention_user
+from .. import built_vars
+from bot.utils import mention_user
 from .core import send_id, catch_exceptions
 
 

@@ -1,8 +1,8 @@
 from aiogram import Bot, Dispatcher
 
 from filters import IsAdminFilter, CanRestrictMembers, ReadOnlyFilter
-from userbot import UserBot
-from built_vars import config
+from bot.userbot import UserBot
+from bot.built_vars import config
 
 # bot
 
