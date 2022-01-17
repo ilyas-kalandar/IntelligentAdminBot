@@ -1,9 +1,6 @@
 import asyncio
 from asyncio import sleep
-from configparser import ConfigParser
 from typing import Awaitable, Callable
-
-from easydict import EasyDict
 
 
 def mention_user(full_name: str, user_id: int) -> str:
@@ -33,23 +30,3 @@ def call_after(func: Callable[[...], Awaitable], delay: int, *args, **kwargs):
     asyncio.create_task(inner_func())
 
 
-def get_config(filename: str) -> EasyDict:
-    """
-    :param filename: A name of .ini file
-    :return: An EasyDict object with configuration!!!
-    """
-
-    parser = ConfigParser()
-    parser.read(filename)
-    config = EasyDict()
-
-    if not parser.sections():
-        raise ValueError("Invalid file was been given!")
-
-    for section in parser.sections():
-        config[section] = EasyDict()
-
-        for key, value in parser.items(section):
-            config[section][key] = value
-
-    return config

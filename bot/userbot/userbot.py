@@ -2,6 +2,9 @@ from pyrogram import Client, types, errors
 
 
 class UserBot:
+    """
+    Just UserBot
+    """
     def __init__(self, api_hash, api_id):
         self.client = Client('session', api_id, api_hash)
         self.client.start()

@@ -1,5 +1,5 @@
 from collections import defaultdict
-from utils import get_config
+from bot.configurator import load_config
 
 read_only = defaultdict(bool)
-config = get_config('config.ini')
+config = load_config('config.ini')
