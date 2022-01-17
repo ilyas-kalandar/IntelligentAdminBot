@@ -6,10 +6,10 @@ from .user_actions import register_user_handlers
 from .callbacks import register_callback_handlers
 
 
-def register_handlers(dp: Dispatcher):
+def setup_handlers(dp: Dispatcher):
     """
     Register handlers
-    :param dp: A aiogram's dispatcher
+    :param dp: An aiogram's dispatcher
     :return:
     """
 
