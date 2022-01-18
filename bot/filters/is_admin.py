@@ -15,6 +15,5 @@ class IsAdmin(BoundFilter):
         self.is_admin = is_admin
 
     async def check(self, message: types.Message):
-        admins = map(lambda admin: admin.user.id, await message.chat.get_administrators())
-
-        return self.is_admin is (message.from_user.id in admins)
+        member = await message.chat.get_member(message.from_user.id)
+        return self.is_admin is member.is_chat_admin()
