@@ -1,7 +1,0 @@
-[bot]
-token=TokenHere
-wait_for_captcha_time = 20
-
-[pyrogram]
-api_hash=HashHere
-api_id=0
