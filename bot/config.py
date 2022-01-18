@@ -1,4 +1,4 @@
-import constants
-import configurator
+from constants import CONFIG_FILENAME
+from configurator import load_config
 
-CONFIG = configurator.load_config(constants.CONFIG_FILENAME)
+CONFIG = load_config(CONFIG_FILENAME)
