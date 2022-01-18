@@ -6,10 +6,12 @@ from loguru import logger
 
 
 def load_filters(dp: Dispatcher):
+    """Loads filters"""
     pass
 
 
 def load_handlers(dp: Dispatcher):
+    """Loads handlers"""
     pass
 
 
@@ -26,7 +28,7 @@ async def on_startup(dp: Dispatcher):
 
 def main():
     executor.start_polling(
-        dispatcher.DISPATCHER,
+        dispatcher.dispatcher,
         skip_updates=True,
         on_startup=on_startup
     )
