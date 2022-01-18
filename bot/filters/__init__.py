@@ -1,0 +1,1 @@
+from aiogram import Dispatcher
