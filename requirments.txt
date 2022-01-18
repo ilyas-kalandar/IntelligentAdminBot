@@ -1,4 +1,3 @@
-aiogram 
+aiogram
+loguru
 pyrogram
-asyncio
-easydict
