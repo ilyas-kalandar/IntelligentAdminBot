@@ -10,10 +10,15 @@ class IsAdmin(BoundFilter):
     def __init__(self, is_admin: bool):
         """
         Initializes self
-        :param is_admin: Is admin or not?
+        :param is_admin:Is admin?
         """
         self.is_admin = is_admin
 
     async def check(self, message: types.Message):
+        """
+        Checks the user rights, if user is admin, returns True
+        if not, returns False
+        :param message: A message
+        """
         member = await message.chat.get_member(message.from_user.id)
         return self.is_admin is member.is_chat_admin()
