@@ -1,33 +1,48 @@
 import logging
+
+from pyrogram import Client
+
 import configurator
 
 from argparse import ArgumentParser
 from aiogram import Dispatcher, Bot
 from aiogram.utils import executor
+
 from constants import BOT_VERSION
+from middlewares import TargetUserSender
+
+from aiogram import types
+
+import handlers
 
 logger = logging.getLogger(__name__)
 
 
+def client_factory(config: configurator.UserBotConfig) -> Client:
+    """
+    Returns an initialized client
+    :param config: A UserBot configuration
+    :return: Pyrogram Client
+    """
+    client = Client(
+        api_hash=config.api_hash,
+        api_id=config.api_id,
+        session_name="pyrogram",
+    )
+
+    client.start()
+
+    return client
+
+
 def load_filters(dp: Dispatcher):
     """Loads filters"""
-    pass
+    # dp.filters_factory.bind(TargetUserRequired)
 
 
 def load_handlers(dp: Dispatcher):
     """Loads handlers"""
-    pass
-
-
-async def on_startup(dp: Dispatcher):
-    logger.info("on_startup started")
-    logger.info("Loading filters...")
-    load_filters(dp)
-    logger.info("Filters loaded.")
-    logger.info("Loading handlers...")
-    load_handlers(dp)
-    logger.info("Handlers loaded.")
-    logger.info("All is ready, starting messages dispatching...")
+    handlers.setup(dp)
 
 
 def build_parser() -> ArgumentParser:
@@ -36,8 +51,8 @@ def build_parser() -> ArgumentParser:
     :return: An Parser instance
     """
     parser = ArgumentParser()
-    parser.add_argument("--config", description="File with configuration", default=None)
-    parser.add_argument("--logs-level", default="info", description="Logging level (info or debug)")
+    parser.add_argument("--config", help="File with configuration", default="")
+    parser.add_argument("--logs-level", default="info", help="Logging level (info or debug)")
 
     return parser
 
@@ -62,16 +77,31 @@ def main():
 
     logging.basicConfig(level=level)
 
-    bot = Bot(config.bot.token)
+    logging.info(f"Intelligent Bot, version {BOT_VERSION}")
+
+    bot = Bot(config.bot.token, parse_mode='html')
     dispatcher = Dispatcher(bot)
+    client = client_factory(config.userbot)
+
+    # setup middlewares
+    logging.info("Loading middlewares...")
+    dispatcher.setup_middleware(
+        TargetUserSender(client)
+    )
+
+    # setup filters
+    logging.info("Loading filters...")
+    load_filters(dispatcher)
+
+    # setup handlers
+    logging.info("Loading handlers...")
+    load_handlers(dispatcher)
 
     executor.start_polling(
         dispatcher=dispatcher,
         skip_updates=True,
-        on_startup=on_startup
     )
 
 
 if __name__ == '__main__':
-    logger.info(f"Starting Intelligent Bot ver {BOT_VERSION}")
     main()
