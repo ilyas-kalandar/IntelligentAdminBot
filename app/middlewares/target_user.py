@@ -20,7 +20,7 @@ def target_user_required(handler: Callable[[types.Message, int], Coroutine]):
     return handler
 
 
-class TargetUserSender(BaseMiddleware):
+class TargetUserMiddleware(BaseMiddleware):
     """
     Middleware for sending target-user's id to handlers
     """

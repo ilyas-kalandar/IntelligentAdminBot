@@ -1,2 +1,2 @@
-from .target_user_sender import TargetUserSender
-from .target_user_sender import target_user_required
+from .target_user import TargetUserMiddleware
+from .target_user import target_user_required
