@@ -1,3 +1,4 @@
 aiogram
 envparse
 pyrogram
+tgcrypto
