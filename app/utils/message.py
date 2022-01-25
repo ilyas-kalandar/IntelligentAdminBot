@@ -4,6 +4,7 @@ from aiogram import types
 def make_link(full_name: str, user_id: int):
     """
     Returns a link to user
+    :param full_name:
     :param user: A telegram user
     :param
     :return: Link of user
