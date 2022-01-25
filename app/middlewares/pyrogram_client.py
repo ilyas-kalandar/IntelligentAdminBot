@@ -19,7 +19,7 @@ def pyrogram_client_required(handler: Callable[[types.Message, int], Coroutine])
     return handler
 
 
-class PyrogramClientSender(BaseMiddleware):
+class PyrogramClientMiddleware(BaseMiddleware):
     """
     Middleware for sending target-user's id to handlers
     """

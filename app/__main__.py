@@ -9,9 +9,7 @@ from aiogram import Dispatcher, Bot
 from aiogram.utils import executor
 
 from constants import BOT_VERSION
-from middlewares import TargetUserSender
-
-from aiogram import types
+from middlewares import TargetUserMiddleware
 
 import handlers
 
@@ -86,7 +84,7 @@ def main():
     # setup middlewares
     logging.info("Loading middlewares...")
     dispatcher.setup_middleware(
-        TargetUserSender(client)
+        TargetUserMiddleware(client)
     )
 
     # setup filters
