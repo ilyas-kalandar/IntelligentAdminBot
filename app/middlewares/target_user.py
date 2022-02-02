@@ -70,7 +70,7 @@ class TargetUserMiddleware(BaseMiddleware):
                 user = await self.pyrogram_client.get_users(username.removeprefix("@"))
             except Exception as e:
                 logging.error(f"Error occurred during getting the user with MT-PROTO Api, {e}")
-                await message.reply(f"An error occurred during getting this user, check username or try later...")
+                await message.reply(f"An error occurred during getting this user, check username or try again later...")
                 raise CancelHandler
 
             data["target_user_id"] = user.id

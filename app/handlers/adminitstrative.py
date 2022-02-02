@@ -1,5 +1,6 @@
 from aiogram import types, Dispatcher
 from middlewares import target_user_required
+from filters import AdministrativePermissionsFilter
 
 import utils
 
@@ -117,17 +118,23 @@ def setup_administrative(dp: Dispatcher):
     """
 
     dp.register_message_handler(
-        cmd_ban, commands=['ban'], commands_prefix="!/"
+        cmd_ban, AdministrativePermissionsFilter(can_restrict_members=True),
+        commands=['ban'], commands_prefix="!/"
     )
     dp.register_message_handler(
-        cmd_unban, commands=['unban'], commands_prefix="!/"
+        cmd_unban, AdministrativePermissionsFilter(can_restrict_members=True),
+        commands=['unban'], commands_prefix="!/"
     )
     dp.register_message_handler(
-        cmd_mute, commands=['mute'], commands_prefix="!/"
+        cmd_mute, is_admin=True,
+        commands=['mute'], commands_prefix="!/"
     )
     dp.register_message_handler(
-        cmd_unmute, commands=['unmute'], commands_prefix="!/"
+        cmd_unmute, is_admin=True,
+        commands=['unmute'], commands_prefix="!/"
     )
     dp.register_message_handler(
-        cmd_kick, commands=['kick'], commands_prefix="!/"
+        cmd_kick, AdministrativePermissionsFilter(can_restrict_members=True),
+        commands=['kick'], commands_prefix="!/",
+
     )

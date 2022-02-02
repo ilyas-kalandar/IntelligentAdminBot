@@ -1,2 +1,4 @@
-from .target_user import TargetUserMiddleware
-from .target_user import target_user_required
+from .target_user import TargetUserMiddleware, target_user_required
+from .pyrogram_client import PyrogramClientMiddleware, pyrogram_client_required
+from .skip_update import SkipUpdateMiddleware
+

@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from configparser import ConfigParser
 
+from typing import List
+
 import envparse
 
 
@@ -8,6 +10,8 @@ import envparse
 class BotConfig:
     token: str
     debug: bool
+    served_chats: List[int]
+    update_interval: int
 
 
 @dataclass
@@ -35,7 +39,9 @@ def load_from_ini(filename: str) -> Config:
 
     token = parser.get("bot", "token")
     debug = parser.getboolean("bot", "debug")
-    bot_config = BotConfig(token, debug)
+    served_chats = list(map(int, parser.get("bot", "served_chats").split(',')))
+    update_interval = parser.getint("bot", "update_interval")
+    bot_config = BotConfig(token, debug, served_chats, update_interval)
 
     # load user-app settings
 
@@ -60,7 +66,9 @@ def load_from_environ() -> Config:
 
     bot_token = envparse.env.str("INTELLIGENT_BOT_TOKEN")
     debug = envparse.env.bool("INTELLIGENT_BOT_DEBUG")
-    bot_config = BotConfig(bot_token, debug)
+    served_chats = list(map(int, envparse.env.str("INTELLIGENT_BOT_SERVED_CHATS")))
+    update_interval = envparse.env("INTELLIGENT_BOT_UPDATE_INTERVAL")
+    bot_config = BotConfig(bot_token, debug, served_chats, update_interval)
 
     # load user-bot settings
 
