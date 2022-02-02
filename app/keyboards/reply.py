@@ -23,8 +23,8 @@ def gen_captcha_keyboard(for_user: int, valid_answer: int) -> types.InlineKeyboa
     random.shuffle(answers)
 
     for answer in answers:
-        valid = "valid" if answer == valid_answer else "invalid"
-        data = f"captcha {for_user} {valid}"
+        is_valid = answer == valid_answer
+        data = f"captcha {for_user} {is_valid}"
         key = types.InlineKeyboardButton(
             text=str(answer),
             callback_data=data

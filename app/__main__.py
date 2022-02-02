@@ -1,17 +1,20 @@
 import logging
+import configurator
+
+import handlers
+import filters
+import utils
+import jobs
 
 from pyrogram import Client
-
-import configurator
 
 from argparse import ArgumentParser
 from aiogram import Dispatcher, Bot
 from aiogram.utils import executor
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from constants import BOT_VERSION
-from middlewares import TargetUserMiddleware
-
-import handlers
+from middlewares import TargetUserMiddleware, SkipUpdateMiddleware, PyrogramClientMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -33,16 +36,6 @@ def client_factory(config: configurator.UserBotConfig) -> Client:
     return client
 
 
-def load_filters(dp: Dispatcher):
-    """Loads filters"""
-    # dp.filters_factory.bind(TargetUserRequired)
-
-
-def load_handlers(dp: Dispatcher):
-    """Loads handlers"""
-    handlers.setup(dp)
-
-
 def build_parser() -> ArgumentParser:
     """
     Builds an instance of command-line arguments parser
@@ -50,9 +43,20 @@ def build_parser() -> ArgumentParser:
     """
     parser = ArgumentParser()
     parser.add_argument("--config", help="File with configuration", default="")
-    parser.add_argument("--logs-level", default="info", help="Logging level (info or debug)")
+    parser.add_argument("--skip-updates", default=False, help="Skip updates?", type=bool)
 
     return parser
+
+
+def build_on_startup(config: configurator.BotConfig, client: Client):
+    async def inner(dp: Dispatcher):
+        utils.asyncio.schedule(jobs.messages_count_updater,
+                               config.update_interval,
+                               client,
+                               dp,
+                               config.served_chats)
+
+    return inner
 
 
 def main():
@@ -78,26 +82,41 @@ def main():
     logging.info(f"Intelligent Bot, version {BOT_VERSION}")
 
     bot = Bot(config.bot.token, parse_mode='html')
-    dispatcher = Dispatcher(bot)
+
+    storage = MemoryStorage()
+
+    dispatcher = Dispatcher(bot, storage=storage)
     client = client_factory(config.userbot)
 
     # setup middlewares
     logging.info("Loading middlewares...")
+
+    dispatcher.setup_middleware(
+        SkipUpdateMiddleware(config.bot)
+    )
+
     dispatcher.setup_middleware(
         TargetUserMiddleware(client)
     )
 
+    dispatcher.setup_middleware(PyrogramClientMiddleware(
+        client
+    ))
+
     # setup filters
     logging.info("Loading filters...")
-    load_filters(dispatcher)
+    dispatcher.filters_factory.bind(filters.IsAdmin)
 
     # setup handlers
     logging.info("Loading handlers...")
-    load_handlers(dispatcher)
+    handlers.setup(dispatcher)
+
+    startup_func = build_on_startup(config.bot, client)
 
     executor.start_polling(
         dispatcher=dispatcher,
-        skip_updates=True,
+        skip_updates=args.skip_updates,
+        on_startup=startup_func
     )
 
 

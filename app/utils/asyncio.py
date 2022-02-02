@@ -17,3 +17,21 @@ def call_after(func: Callable[[...], Coroutine], delay: int, *args, **kwargs):
         await func(*args, **kwargs)
 
     asyncio.create_task(inner_func())
+
+
+def schedule(func: Callable[[...], Coroutine], snooze: int, *args, **kwargs):
+    """
+    Runs ```func``` every ```snooze``` seconds
+    :param func: A function
+    :param snooze: A snooze
+    :param args: Arguments for function
+    :param kwargs: Keyword-arguments for function
+    :return: None
+    """
+
+    async def inner():
+        while True:
+            await func(*args, **kwargs)
+            await asyncio.sleep(snooze)
+
+    asyncio.create_task(inner())

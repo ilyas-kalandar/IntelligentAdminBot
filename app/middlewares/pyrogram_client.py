@@ -11,11 +11,12 @@ from pyrogram import Client
 
 def pyrogram_client_required(handler: Callable[[types.Message, int], Coroutine]):
     """
-    Makes handler
-    :param handler:
-    :return:
+    Marks handler for sending pyrogram_client
+    :param handler: Message handler
+    :rtype: Callable[[types.Message, int], Coroutine]
+    :return: A handler
     """
-    setattr(handler, "target_user_required", True)
+    setattr(handler, "pyrogram_client_required", True)
     return handler
 
 
@@ -46,8 +47,8 @@ class PyrogramClientMiddleware(BaseMiddleware):
 
         handler = current_handler.get()
 
-        if not hasattr(handler, 'pyrogram_client') or not getattr(handler, "pyrogram_client"):
-            # if handler don't require pyrogram-client, all is ok, skip update
+        if not hasattr(handler, 'pyrogram_client_required') or not getattr(handler, "pyrogram_client_required"):
+            # if handler don't require pyrogram-client, all is ok
             return
 
         logging.debug(f"{handler} required pyrogram-client, sending...")
