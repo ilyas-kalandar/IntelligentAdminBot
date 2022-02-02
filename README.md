@@ -18,10 +18,11 @@
 ### Fill config
 #### Rename a example_config.ini to whatever_you_want.ini
 #### Than, open it.
+<img src='.github/settings.png'><br>
 #### Fill each field, I leaved some comments for help.
 ### Run bot
 #### <code>python app --config whatever_you_want.ini</code>
-#### For skipping updates, use --skip-updates key, (pass true as value)
+#### For skipping updates, use <code>--skip-updates</code> key, (pass true as value)
  
 ## Built with
 #### Aiogram - a powerfull framework to creating telegram bots (<a href='https://pypi.org/project/aiogram/'>Link</a>)
