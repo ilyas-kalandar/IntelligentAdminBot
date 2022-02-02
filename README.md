@@ -29,4 +29,4 @@
 #### Pyrogram - a library for accesing telegram api. (<a href='https://github.com/pyrogram/pyrogram'>Link</a>)
 #### Python - a great programming language.
 
-### With ❤ Ilyas Kalandar, 2021.
+### With ❤ Awaitable, 2021-2022
