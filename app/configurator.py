@@ -10,6 +10,7 @@ import envparse
 class BotConfig:
     token: str
     debug: bool
+    skip_updates: bool
     served_chats: List[int]
     update_interval: int
 
@@ -40,8 +41,9 @@ def load_from_ini(filename: str) -> Config:
     token = parser.get("bot", "token")
     debug = parser.getboolean("bot", "debug")
     served_chats = list(map(int, parser.get("bot", "served_chats").split(',')))
+    skip_updates = parser.getboolean("bot", "skip_updates")
     update_interval = parser.getint("bot", "update_interval")
-    bot_config = BotConfig(token, debug, served_chats, update_interval)
+    bot_config = BotConfig(token, debug, skip_updates, served_chats, update_interval)
 
     # load user-app settings
 
