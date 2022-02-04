@@ -17,7 +17,7 @@
 ## How to run?
 ### Fill config
 #### Rename a example_config.ini to whatever_you_want.ini
-#### Than, open it.
+#### Then, open it.
 <img src='.github/settings.png'><br>
 #### Fill each field, I leaved some comments for help.
 ### Run bot
