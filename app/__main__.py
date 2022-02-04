@@ -43,7 +43,6 @@ def build_parser() -> ArgumentParser:
     """
     parser = ArgumentParser()
     parser.add_argument("--config", help="File with configuration", default="")
-    parser.add_argument("--skip-updates", default=False, help="Skip updates?", type=bool)
 
     return parser
 
@@ -90,7 +89,7 @@ def main():
 
     # setup middlewares
     logging.info("Loading middlewares...")
-    
+
     dispatcher.setup_middleware(
         SkipUpdateMiddleware(config.bot)
     )
@@ -113,7 +112,7 @@ def main():
 
     executor.start_polling(
         dispatcher=dispatcher,
-        skip_updates=args.skip_updates,
+        skip_updates=config.bot.skip_updates,
         on_startup=startup_func
     )
 
