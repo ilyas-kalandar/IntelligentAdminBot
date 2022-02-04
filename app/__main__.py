@@ -90,18 +90,16 @@ def main():
 
     # setup middlewares
     logging.info("Loading middlewares...")
-
+    
     dispatcher.setup_middleware(
         SkipUpdateMiddleware(config.bot)
     )
-
     dispatcher.setup_middleware(
         TargetUserMiddleware(client)
     )
-
-    dispatcher.setup_middleware(PyrogramClientMiddleware(
-        client
-    ))
+    dispatcher.setup_middleware(
+        PyrogramClientMiddleware(client)
+    )
 
     # setup filters
     logging.info("Loading filters...")
