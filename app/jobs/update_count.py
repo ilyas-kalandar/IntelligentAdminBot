@@ -15,15 +15,12 @@ async def messages_count_updater(client: Client, dp: Dispatcher, served_chats: L
     :param dp: A dispatcher
     :return: None
     """
-
     logging.info("Starting messages count updating...")
-
+    
     for chat in served_chats:
         count = Counter()
-
         async for user in client.iter_chat_members(chat):
             # iterate through chat members
-
             while True:
                 # start loop
                 # try to get messages count
@@ -44,5 +41,5 @@ async def messages_count_updater(client: Client, dp: Dispatcher, served_chats: L
         data = await dp.storage.get_data(chat=chat)
         data["messages_count"] = count
         await dp.storage.set_data(chat=chat, data=data)
-
+    # notice about finishing
     logging.info("Updating finished!")
