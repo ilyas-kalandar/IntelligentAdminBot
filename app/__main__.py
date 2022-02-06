@@ -20,8 +20,6 @@ from middlewares import (
     PyrogramClientMiddleware,
 )
 
-logger = logging.getLogger(__name__)
-
 
 def client_factory(config: configurator.UserBotConfig) -> Client:
     """
