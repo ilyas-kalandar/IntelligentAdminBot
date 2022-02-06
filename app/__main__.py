@@ -14,7 +14,11 @@ from aiogram.utils import executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from constants import BOT_VERSION
-from middlewares import TargetUserMiddleware, SkipUpdateMiddleware, PyrogramClientMiddleware
+from middlewares import (
+    TargetUserMiddleware,
+    SkipUpdateMiddleware,
+    PyrogramClientMiddleware,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +40,7 @@ def client_factory(config: configurator.UserBotConfig) -> Client:
     return client
 
 
-def build_parser() -> ArgumentParser:
+def parser_factory() -> ArgumentParser:
     """
     Builds an instance of command-line arguments parser
     :return: An Parser instance
@@ -47,58 +51,74 @@ def build_parser() -> ArgumentParser:
     return parser
 
 
-def build_on_startup(config: configurator.BotConfig, client: Client):
+def on_startup_factory(config: configurator.BotConfig, client: Client):
+    """
+    Creates a async-function for making some jobs before starting dispath
+    :param config: A Bot-Configuration
+    :param client: A pyrogram client
+    """
     async def inner(dp: Dispatcher):
-        utils.asyncio.schedule(jobs.messages_count_updater,
-                               config.update_interval,
-                               client,
-                               dp,
-                               config.served_chats)
+        utils.asyncio.schedule(
+            jobs.messages_count_updater,
+            config.update_interval,
+            client,
+            dp,
+            config.served_chats,
+        )
 
     return inner
+
+
+def load_config(config_path: str) -> configurator.Config:
+    """
+    Loads a configuration
+    :param config_path: A string with path
+    :return: A Config-object
+    """
+
+    if config_path.endswith(".ini"):
+        return configurator.load_from_ini(config_path)
+    elif config_path.endswith(".env"):
+        return configurator.load_from_dotenv(config_path)
+    else:
+        return configurator.load_from_environ()
+
+
+def configure_logging(config: configurator.BotConfig):
+    """
+    Configures logging
+    :param config: A Bot-Configuration
+    :return: None
+    """
+
+    logging_level = logging.INFO
+
+    if config.bot.debug:
+        logging_level = logging.DEBUG
+
+    logging.basicConfig(level=logging_level)
 
 
 def main():
     """Heart of project"""
 
-    parser = build_parser()
+    parser = parser_factory()
     args = parser.parse_args()
+    config = load_config(args.config)
 
-    if args.config.endswith(".ini"):
-        config = configurator.load_from_ini(args.config)
-    elif args.config.endswith(".env"):
-        config = configurator.load_from_dotenv(args.config)
-    else:
-        config = configurator.load_from_environ()
-
-    level = logging.INFO
-
-    if config.bot.debug:
-        level = logging.DEBUG
-
-    logging.basicConfig(level=level)
-
+    bot = Bot(config.bot.token, parse_mode="html")
     logging.info(f"Intelligent Bot, version {BOT_VERSION}")
 
-    bot = Bot(config.bot.token, parse_mode='html')
-
     storage = MemoryStorage()
-
     dispatcher = Dispatcher(bot, storage=storage)
     client = client_factory(config.userbot)
 
     # setup middlewares
     logging.info("Loading middlewares...")
 
-    dispatcher.setup_middleware(
-        SkipUpdateMiddleware(config.bot)
-    )
-    dispatcher.setup_middleware(
-        TargetUserMiddleware(client)
-    )
-    dispatcher.setup_middleware(
-        PyrogramClientMiddleware(client)
-    )
+    dispatcher.setup_middleware(SkipUpdateMiddleware(config.bot))
+    dispatcher.setup_middleware(TargetUserMiddleware(client))
+    dispatcher.setup_middleware(PyrogramClientMiddleware(client))
 
     # setup filters
     logging.info("Loading filters...")
@@ -108,14 +128,14 @@ def main():
     logging.info("Loading handlers...")
     handlers.setup(dispatcher)
 
-    startup_func = build_on_startup(config.bot, client)
+    startup_func = on_startup_factory(config.bot, client)
 
     executor.start_polling(
         dispatcher=dispatcher,
         skip_updates=config.bot.skip_updates,
-        on_startup=startup_func
+        on_startup=startup_func,
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
