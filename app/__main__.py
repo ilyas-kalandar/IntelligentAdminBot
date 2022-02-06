@@ -57,6 +57,7 @@ def on_startup_factory(config: configurator.BotConfig, client: Client):
     :param config: A Bot-Configuration
     :param client: A pyrogram client
     """
+
     async def inner(dp: Dispatcher):
         utils.asyncio.schedule(
             jobs.messages_count_updater,
@@ -102,15 +103,20 @@ def configure_logging(config: configurator.BotConfig):
 def main():
     """Heart of project"""
 
+    # setup command line arguments parser
     parser = parser_factory()
+    # parse
     args = parser.parse_args()
+    # load configuration
     config = load_config(args.config)
-
+    # Intialize bot
     bot = Bot(config.bot.token, parse_mode="html")
     logging.info(f"Intelligent Bot, version {BOT_VERSION}")
-
+    # Intialize Dispatcher
+    logging.info("Initializing Dispatcher")
     storage = MemoryStorage()
     dispatcher = Dispatcher(bot, storage=storage)
+    logging.info("Initializing pyrogram_client")
     client = client_factory(config.userbot)
 
     # setup middlewares
