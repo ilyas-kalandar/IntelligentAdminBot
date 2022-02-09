@@ -68,6 +68,29 @@ async def chat_member_info(message: types.Message, target_user_id: int):
     )
 
 
+async def help_(message: types.Message):
+    """
+    Just help menu
+    :param message: A message
+    :return: None
+    """
+
+    text = "<b>Intelligent bot help</b>\n" \
+           "/help - <b>Show this</b>\n\n" \
+           "Commands such as ban/kick/mute/unban/unmute/info must be provided with argument or sent as <b>reply</b>\n" \
+           "/ban - <b>Ban user</b>\n" \
+           "/unban - <b>Unban user</b>\n" \
+           "/mute - <b>Mute user</b>\n" \
+           "/unmute - <b>Unmute user</b>\n" \
+           "/kick - <b>Kick user (remove)</b>\n" \
+           "/info - <b>Information about user</b>\n" \
+           "/stat - <b>Information about group</b>\n" \
+           "/top - <b>Get top active-users of chat</b>\n"
+    await message.reply(
+        text
+    )
+
+
 async def top(message: types.Message):
     """
     Returns a top 10 active users in chat
@@ -109,3 +132,4 @@ def setup_default(dp: Dispatcher):
     dp.register_message_handler(chat_status, commands=['stat', 'status'], commands_prefix='!/')
     dp.register_message_handler(chat_member_info, commands=['info'], commands_prefix="!/")
     dp.register_message_handler(top, commands=['top'], commands_prefix="!/")
+    dp.register_message_handler(help_, commands=['help'], commands_prefix="!/")
