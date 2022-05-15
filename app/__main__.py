@@ -30,7 +30,7 @@ def client_factory(config: configurator.UserBotConfig) -> Client:
     client = Client(
         api_hash=config.api_hash,
         api_id=config.api_id,
-        session_name="pyrogram",
+        name="pyrogram",
     )
 
     client.start()
