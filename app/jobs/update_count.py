@@ -19,7 +19,7 @@ async def messages_count_updater(client: Client, dp: Dispatcher, served_chats: L
     
     for chat in served_chats:
         count = Counter()
-        async for user in client.iter_chat_members(chat):
+        async for user in client.get_chat_members(chat):
             # iterate through chat members
             while True:
                 # start loop
