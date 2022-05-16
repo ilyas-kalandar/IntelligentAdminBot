@@ -16,11 +16,16 @@ async def messages_count_updater(client: Client, dp: Dispatcher, served_chats: L
     :return: None
     """
     logging.info("Starting messages count updating...")
-    
+
     for chat in served_chats:
         count = Counter()
         async for user in client.get_chat_members(chat):
             # iterate through chat members
+            # if user is bot, let's skip it
+
+            if user.user.is_bot:
+                continue
+
             while True:
                 # start loop
                 # try to get messages count
