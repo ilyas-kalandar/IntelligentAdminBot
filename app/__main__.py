@@ -107,10 +107,10 @@ def main():
     args = parser.parse_args()
     # load configuration
     config = load_config(args.config)
-    # Intialize bot
+    # Initialize bot
     bot = Bot(config.bot.token, parse_mode="html")
     logging.info(f"Intelligent Bot, version {BOT_VERSION}")
-    # Intialize Dispatcher
+    # Initialize Dispatcher
     logging.info("Initializing Dispatcher")
     storage = MemoryStorage()
     dispatcher = Dispatcher(bot, storage=storage)
