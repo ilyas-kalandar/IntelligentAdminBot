@@ -92,7 +92,7 @@ def configure_logging(config: configurator.BotConfig):
 
     logging_level = logging.INFO
 
-    if config.bot.debug:
+    if config.debug:
         logging_level = logging.DEBUG
 
     logging.basicConfig(level=logging_level)
@@ -107,6 +107,7 @@ def main():
     args = parser.parse_args()
     # load configuration
     config = load_config(args.config)
+    configure_logging(config.bot)
     # Initialize bot
     bot = Bot(config.bot.token, parse_mode="html")
     logging.info(f"Intelligent Bot, version {BOT_VERSION}")
