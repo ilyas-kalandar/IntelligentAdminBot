@@ -21,6 +21,9 @@ class SkipUpdateMiddleware(BaseMiddleware):
         if message.chat.id not in self.config.served_chats:
             # if we don't do serving update's chat's id, skip it
             logging.info(f"{message.chat.id} not in served_chats list, skipping update.")
+            # Also, let's leave chat (because we don't serve it)
+            logging.info("Leaving chat...")
+            await message.bot.leave_chat(message.chat.id)
             raise CancelHandler()
 
         # handle update
