@@ -1,31 +1,44 @@
 # <p align=center>IntelligentBot - bot for managing your telegram group.</p>
 <img src='.github/intelligent.png'/> <br>
 
-## What I implemented and what I didn't implement
- - [x] - <b>Ban/Unban/Kick commands</b>
- - [X] - <b>Mute/Unmute commands</b>
- - [x] - <b>Simple captcha</b>
- - [X] - <b>Read-Only mode</b>
- - [x] - <b>Getting information about group</b>
- - [X] - <b>Using commands directly with user's username</b>
- - [X] - <b>Messages analyzing</b>
- - [ ] - <b>Announcements system</b>
- - [ ] - <b>Settings</b>
- - [ ] - <b>Localization system</b>
+# About
+IntelligentBot is a Telegram bot for managing chats.
 
+# Install and run
+First: install requirements
+```bash
+pip install -r requirements
+```
+Then, edit example_config.ini and move it to any file you want \(you can keep this name too\).
+Start with this command:
+```bash
+python app --config your_config_file
+```
 
-## How to run?
-### Fill config
-#### Rename a example_config.ini to whatever_you_want.ini
-#### Then, open it.
-<img src='.github/settings.png'><br>
-#### Fill each field, I leaved some comments for help.
-### Run bot
-#### <code>python app --config whatever_you_want.ini</code>
- 
-## Built with
-#### Aiogram - a powerfull framework to creating telegram bots (<a href='https://pypi.org/project/aiogram/'>Link</a>)
-#### Pyrogram - a library for accesing telegram api. (<a href='https://github.com/pyrogram/pyrogram'>Link</a>)
-#### Python - a great programming language.
+# ToDo
+- [x] - Ban/Unban/Kick commands
+- [x] - Mute/Unmute commands
+- [x] - Simple captcha
+- [x] - Read-Only mode
+- [x] - Getting information about group
+- [x] - Using commands directly with user's username
+- [x] - Messages analyzing
+- [ ] - Announcements system
+- [ ] - Settings
+- [ ] - Localization system
 
-### With ❤ Awaitable, 2021-2022
+# Used software
+[Aiogram](https://pypi.org/project/aiogram) - a powerfull framework for creating Telegram bots.
+
+[Pyrogram](https://github.com/pyrogram/pyrogram) - a library for accessing Telegram Bot API.
+
+Python - a great programming language.
+
+# Authors
+[Awaitable](https://github.com/awtbl) - Coder \(2021-2022\)
+
+[xbt573](https://github.com/xbt573) - Small fixes \(2022-2022\)
+
+---
+
+Built with ❤, 2021-2022
