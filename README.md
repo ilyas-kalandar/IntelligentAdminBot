@@ -35,7 +35,7 @@ python app --config your_config_file
 Python - a great programming language.
 
 # Authors
-[Awaitable](https://github.com/awtbl) - Coder \(2021-2022\)
+[Ilyas](https://github.com/ilyas-qalandarzoda) - Coder \(2021-2022\)
 
 [xbt573](https://github.com/xbt573) - Small fixes \(2022-2022\)
 
