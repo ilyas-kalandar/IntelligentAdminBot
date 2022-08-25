@@ -1,4 +1,4 @@
-# <p align=center>IntelligentBot - bot for managing your telegram group.</p>
+# <p align=center>Intelligent - bot for managing your telegram group.</p>
 <img src='.github/intelligent.png'/> <br>
 
 # About
@@ -35,7 +35,7 @@ python app --config your_config_file
 Python - a great programming language.
 
 # Authors
-[Ilyas](https://github.com/ilyas-qalandarzoda) - Coder \(2021-2022\)
+[Ilyas](https://github.com/ilyas-kalandar) - Coder \(2021-2022\)
 
 [xbt573](https://github.com/xbt573) - Small fixes \(2022-2022\)
 
