@@ -51,7 +51,7 @@ def parser_factory() -> ArgumentParser:
 
 def on_startup_factory(config: configurator.BotConfig, client: Client):
     """
-    Creates a async-function for making some jobs before starting dispath
+    Creates a async-function for making some jobs before starting dispatching
     :param config: A Bot-Configuration
     :param client: A pyrogram client
     """
@@ -79,8 +79,8 @@ def load_config(config_path: str) -> configurator.Config:
         return configurator.load_from_ini(config_path)
     elif config_path.endswith(".env"):
         return configurator.load_from_dotenv(config_path)
-    else:
-        return configurator.load_from_environ()
+
+    return configurator.load_from_environ()
 
 
 def configure_logging(config: configurator.BotConfig):
